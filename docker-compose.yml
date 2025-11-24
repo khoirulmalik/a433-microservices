@@ -1,15 +1,25 @@
 # Docker Compose file untuk menjalankan Item App
+# File ini mendefinisikan services, networks, dan volumes yang diperlukan
+
+# Menggunakan Docker Compose versi 3
 version: "3"
 
+# Definisi services (container) yang akan dijalankan
 services:
+  # Service item-app (aplikasi Node.js + Express)
   item-app:
+    # Menggunakan image yang sudah di-push ke Docker Hub
+    # Image ini berisi aplikasi Node.js yang sudah di-build
     image: khoirulmalik/item-app:v1
 
+    # Port mapping: host:container
+    # Port 80 di host akan diteruskan ke port 8080 di container
     # Aplikasi dapat diakses melalui http://localhost
     ports:
       - "80:8080"
 
-
+    # Dependency: item-app hanya akan start setelah item-db running
+    # Memastikan database sudah siap sebelum aplikasi dijalankan
     depends_on:
       - item-db
 
